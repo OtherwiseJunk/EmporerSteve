@@ -33,7 +33,7 @@ class Program
             .WithDescription("Generates a set of valid starting characteristics for Traveller 2e.")
             .AddOption(new SlashCommandOptionBuilder()
                 .WithName("modifier")
-                .WithDescription("The minimum characteristic modifier sum required for the rolled characteristics. Defaults to 0.")
+                .WithDescription("The minimum characteristic modifier sum required for the rolled characteristics. Defaults to 0, Max of 9, Min of -9.")
                 .WithType(ApplicationCommandOptionType.Integer)
                 .WithMaxValue(9)
                 .WithMinValue(-9)
