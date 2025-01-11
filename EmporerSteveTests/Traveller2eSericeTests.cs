@@ -49,9 +49,9 @@ namespace EmporerSteveTests
         {
             for(int i = 0; i < 20; i++)
             {
-                var characteristics = _sut.GetValidStartingCharacteristics();
+                var characteristics = _sut.GetValidStartingCharacteristics(0);
 
-                Assert.IsTrue(_sut.IsValidStartingCharacteristics(characteristics));
+                Assert.IsTrue(_sut.IsValidStartingCharacteristics(characteristics, 0));
             }            
         }
 
@@ -76,7 +76,7 @@ namespace EmporerSteveTests
         {
             var characteristics = new[] { 7, 7, 7, 7, 7, 7 };
 
-            var result = _sut.IsValidStartingCharacteristics(characteristics);
+            var result = _sut.IsValidStartingCharacteristics(characteristics, 0);
 
             Assert.IsTrue(result);
         }
@@ -86,7 +86,7 @@ namespace EmporerSteveTests
         {
             var characteristics = new[] { 1, 1, 1, 1, 1, 1 };
 
-            var result = _sut.IsValidStartingCharacteristics(characteristics);
+            var result = _sut.IsValidStartingCharacteristics(characteristics, 0);
 
             Assert.IsFalse(result);
         }

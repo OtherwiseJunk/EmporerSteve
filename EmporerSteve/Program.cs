@@ -29,7 +29,12 @@ class Program
     {    
         var globalTraveller2eCharacteristicGenerator = new SlashCommandBuilder()
             .WithName(SlashCommandConstants.Traveller2eCharacteristicsGenerator)
-            .WithDescription("Generates a set of valid starting characteristics for Traveller 2e");
+            .WithDescription("Generates a set of valid starting characteristics for Traveller 2e. Defaults to requiring the rolled characteristics having a summed modifier greater than 0, but is configurable.")
+            .AddOption(new SlashCommandOptionBuilder()
+                .WithName("modifier")
+                .WithDescription("The minimum characteristic modifier sum required for the rolled characteristics. Defaults to 0.")
+                .WithType(ApplicationCommandOptionType.Integer)
+                .WithRequired(false));
 
         try
         {
@@ -46,8 +51,9 @@ class Program
     {
         if (command.Data.Name == SlashCommandConstants.Traveller2eCharacteristicsGenerator)
         {
+            var minimumModifierSum = command.Data.Options.FirstOrDefault(o => o.Name == "modifier")?.Value as int? ?? 0;
             var service = new Traveller2eService();
-            var characteristics = service.GetValidStartingCharacteristics();
+            var characteristics = service.GetValidStartingCharacteristics(minimumModifierSum);
             var message = string.Join(", ", characteristics);
             var embed = new EmbedBuilder()
                 .WithTitle("Traveller 2e Starting Characteristics")

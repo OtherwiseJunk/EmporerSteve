@@ -29,13 +29,13 @@ namespace EmporerSteve.Services
             };
         }
 
-        public int[] GetValidStartingCharacteristics()
+        public int[] GetValidStartingCharacteristics(int minimumModiferSum)
         {
             int[] characteristics;
             do
             {
                 characteristics = RollStartingCharacteristics();
-            } while (!IsValidStartingCharacteristics(characteristics));
+            } while (!IsValidStartingCharacteristics(characteristics, minimumModiferSum));
 
             return characteristics;
         }
@@ -51,11 +51,11 @@ namespace EmporerSteve.Services
             return characteristics;
         }
 
-        public bool IsValidStartingCharacteristics(int[] characteristics)
+        public bool IsValidStartingCharacteristics(int[] characteristics, int minimumModifierSum)
         {
             int[] modifiers = characteristics.Select(GetCharacteristicModifier).ToArray();
 
-            return modifiers.Sum() >= 0;
+            return modifiers.Sum() >= minimumModifierSum;
         }
     }
 }
