@@ -56,7 +56,15 @@ class Program
         {
             Console.WriteLine("Generating Traveller 2e Characteristics with options:");
             Console.WriteLine(JsonSerializer.Serialize(command.Data.Options));
-            var minimumModifierSum = command.Data.Options.FirstOrDefault(o => o.Name == "modifier")?.Value as int? ?? 0;
+            var modifierOption = command.Data.Options.FirstOrDefault(o => o.Name == "modifier").Value?.ToString();
+            Console.WriteLine("Modifier Option: " + modifierOption);
+            var parsed = int.TryParse(modifierOption, out var minimumModifierSum);
+            Console.WriteLine("Successfully Parsed Modifier Option?: " + parsed);
+            Console.WriteLine("Parsed Value: " + minimumModifierSum);
+            if (!parsed)
+            {
+                minimumModifierSum = 0;
+            }
             Console.WriteLine($"Parsed Minimum Modifier Sum: {minimumModifierSum}");
             
             var service = new Traveller2eService();
