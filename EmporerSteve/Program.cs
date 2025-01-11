@@ -29,7 +29,7 @@ class Program
     {    
         var globalTraveller2eCharacteristicGenerator = new SlashCommandBuilder()
             .WithName(SlashCommandConstants.Traveller2eCharacteristicsGenerator)
-            .WithDescription("Generates a set of valid starting characteristics for Traveller 2e. Defaults to requiring the rolled characteristics having a summed modifier greater than 0, but is configurable.")
+            .WithDescription("Generates a set of valid starting characteristics for Traveller 2e.")
             .AddOption(new SlashCommandOptionBuilder()
                 .WithName("modifier")
                 .WithDescription("The minimum characteristic modifier sum required for the rolled characteristics. Defaults to 0.")
