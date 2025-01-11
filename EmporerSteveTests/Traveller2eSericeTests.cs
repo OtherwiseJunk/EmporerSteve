@@ -54,6 +54,35 @@ namespace EmporerSteveTests
                 Assert.IsTrue(_sut.IsValidStartingCharacteristics(characteristics, 0));
             }            
         }
+        
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [DataRow(3)]
+        [DataRow(4)]
+        [DataRow(5)]
+        [DataRow(6)]
+        [DataRow(7)]
+        [DataRow(8)]
+        [DataRow(9)]
+        [DataRow(-1)]
+        [DataRow(-2)]
+        [DataRow(-3)]
+        [DataRow(-4)]
+        [DataRow(-5)]
+        [DataRow(-6)]
+        [DataRow(-7)]
+        [DataRow(-8)]
+        [DataRow(-9)]
+        public void GetValidStartingCharacteristics_ShouldRespectMinimumModifierSum(int minimumModifierSum)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                var characteristics = _sut.GetValidStartingCharacteristics(minimumModifierSum);
+
+                Assert.IsTrue(_sut.IsValidStartingCharacteristics(characteristics, minimumModifierSum));
+            }            
+        }
 
         [TestMethod]
         public void RollStartingCharacteristics_ShouldReturnArrayOfSixElementsInRange()
@@ -89,6 +118,16 @@ namespace EmporerSteveTests
             var result = _sut.IsValidStartingCharacteristics(characteristics, 0);
 
             Assert.IsFalse(result);
+        }
+        
+        [TestMethod]
+        [DataRow(new[] { 7, 7, 7, 7, 7, 7 }, 7, false)]
+        [DataRow(new[] { 12, 11, 11, 11, 11, 11 }, 7, true)]
+        public void IsValidStartingCharacteristics_ShouldRespectMinimumModifierSum(int[] array, int minimumModifierSum, bool expected)
+        {
+            var result = _sut.IsValidStartingCharacteristics(array, minimumModifierSum);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

@@ -34,6 +34,8 @@ class Program
                 .WithName("modifier")
                 .WithDescription("The minimum characteristic modifier sum required for the rolled characteristics. Defaults to 0.")
                 .WithType(ApplicationCommandOptionType.Integer)
+                .WithMaxValue(9)
+                .WithMinValue(-9)
                 .WithRequired(false));
 
         try
@@ -51,7 +53,11 @@ class Program
     {
         if (command.Data.Name == SlashCommandConstants.Traveller2eCharacteristicsGenerator)
         {
+            Console.WriteLine("Generating Traveller 2e Characteristics with options:");
+            Console.WriteLine(command.Data.Options);
             var minimumModifierSum = command.Data.Options.FirstOrDefault(o => o.Name == "modifier")?.Value as int? ?? 0;
+            Console.WriteLine($"Parsed Minimum Modifier Sum: {minimumModifierSum}");
+            
             var service = new Traveller2eService();
             var characteristics = service.GetValidStartingCharacteristics(minimumModifierSum);
             var message = string.Join(", ", characteristics);
