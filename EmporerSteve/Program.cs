@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using System.Text.Json;
+using Discord;
 using Discord.WebSocket;
 using EmporerSteve.Services;
 
@@ -54,7 +55,7 @@ class Program
         if (command.Data.Name == SlashCommandConstants.Traveller2eCharacteristicsGenerator)
         {
             Console.WriteLine("Generating Traveller 2e Characteristics with options:");
-            Console.WriteLine(command.Data.Options);
+            Console.WriteLine(JsonSerializer.Serialize(command.Data.Options));
             var minimumModifierSum = command.Data.Options.FirstOrDefault(o => o.Name == "modifier")?.Value as int? ?? 0;
             Console.WriteLine($"Parsed Minimum Modifier Sum: {minimumModifierSum}");
             
